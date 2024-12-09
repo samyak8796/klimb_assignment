@@ -1,20 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const candidateRoutes = require('./routes/candidateRoutes');
+const routes = require('./routes')
 const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
 
-// Middleware setup
-app.use(cors());  // Enable CORS for cross-origin requests
-app.use(bodyParser.json());  // Parse incoming JSON requests
+app.use(cors());  
+app.use(bodyParser.json()); 
 
-// Routes
-app.use('/api/candidates', candidateRoutes);
+app.use('/api/candidates', routes);
 
-// MongoDB connection
 const connectToMongoDB = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URI, {
@@ -24,11 +21,10 @@ const connectToMongoDB = async () => {
         console.log("MongoDB connected");
     } catch (err) {
         console.error("MongoDB connection error:", err);
-        process.exit(1);  // Exit the process with failure code
+        process.exit(1);  
     }
 };
 
 connectToMongoDB();
 
-// Export the app
 module.exports = app;

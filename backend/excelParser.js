@@ -6,14 +6,11 @@ const parseExcel = (filePath) => {
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
         const rawData = xlsx.utils.sheet_to_json(sheet);
 
-        // Ensure the raw data is not empty
         if (rawData.length === 0) {
             throw new Error('Excel file is empty or invalid');
         }
 
-        // Normalize the data to match schema
         return rawData.map((row, index) => {
-            // Check for missing required fields and log warnings
             const normalizedRow = {
                 nameOfTheCandidate: row['Name of the Candidate'] || '',
                 email: row['Email'] || '',
@@ -27,7 +24,6 @@ const parseExcel = (filePath) => {
                 currentDesignation: row['Current Designation'] || '',
             };
 
-            // Log missing fields or any potential issues
             Object.keys(normalizedRow).forEach(key => {
                 if (!normalizedRow[key] && ['nameOfTheCandidate', 'email'].includes(key)) {
                     console.warn(`Row ${index + 1} is missing required field: ${key}`);

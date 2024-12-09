@@ -1,6 +1,6 @@
 const express = require('express');
 const multer = require('multer');
-const { uploadCandidates } = require('../controller/candidateController');
+const { uploadCandidates } = require('./controller/candidateController')
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });

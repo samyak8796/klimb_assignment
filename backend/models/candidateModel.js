@@ -52,11 +52,10 @@ const candidateSchema = new mongoose.Schema(
         },
     },
     {
-        timestamps: true, // Automatically add createdAt and updatedAt fields
+        timestamps: true, 
     }
 );
 
-// Add indexes for improved query performance
 candidateSchema.index({ email: 1 });
 
 module.exports = mongoose.model('Candidate', candidateSchema);
